@@ -1,0 +1,58 @@
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+/* Tailwind CSS Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Font Style */
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+/* Keyframes for the glowing background animation */
+@keyframes willowGlow {
+  0% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7); /* teal */
+  }
+  50% {
+    background-position: 100% 50%;
+    box-shadow: 0 0 60px rgba(0, 255, 255, 0.9); /* bright teal */
+  }
+  100% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7); /* teal */
+  }
+}
+
+/* Custom Animation Class for Glowing Background */
+.animate-willow-glow {
+  background-size: 400% 400%;
+  animation: willowGlow 30s ease-in-out infinite;
+  opacity: 0.6; /* Slightly reduced opacity for the glow */
+}
+
+/* Smooth Pulse Animation */
+@keyframes pulse-smooth {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+.animate-pulse-smooth {
+  animation: pulse-smooth 7s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  /* Prevent selection on mobile */
+  * {
+    user-select: none;
+  }
+
+  /* Allow selection only on text inputs and form elements */
+  input, textarea, select {
+    user-select: text;
+  }
+}
