@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
 import transporter from '../config/nodemailer.js';
 import { EMAIL_VERIFY_TEMPLATE } from '../config/emailTemplates.js';
+import authMiddleware from '../middleware/authMiddleware.js';
+
 
 export const register = async (req, res) => {
     const { name, email, password } = req.body;
@@ -137,11 +139,18 @@ export const verifyEmail = async (req, res) => {
     }
 };
 
-export const isAuthenticated = async (req, res) => {
-    try {
-        // Assuming token validation is already handled in middleware
-        return res.json({ success: true });
-    } catch (error) {
-        return res.json({ success: false, message: error.message });
+// export const isAuthenticated = async (req, res) => {
+//     try {
+//         // Assuming token validation is already handled in middleware
+//         return res.json({ success: true });
+//     } catch (error) {
+//         return res.json({ success: false, message: error.message });
+//     }
+// };
+
+export const isAuthenticated = [
+    authMiddleware,
+    (req, res) => {
+        res.json({ success: true, user: req.user });
     }
-};
+];
