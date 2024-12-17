@@ -13,7 +13,7 @@ const port = process.env.PORT || 4000;
 connectDB();
 
 // Define allowed origins for CORS
-const allowedOrigins = ["https://kiwi-client.onrender.com"];
+const allowedOrigins = ['https://kiwi-client.onrender.com'];
 // http://localhost:5173
 
 // Middleware
