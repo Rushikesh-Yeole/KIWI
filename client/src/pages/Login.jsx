@@ -6,9 +6,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 
 const Login = () => {
-
   const navigate = useNavigate();
-
   const { backendUrl, setIsLoggedIn, getUserData } = useContext(AppContent);
 
   const [state, setState] = useState('Sign Up');
@@ -22,18 +20,17 @@ const Login = () => {
     if (storedEmail) {
       setEmail(storedEmail); // Automatically fill the email input field
     }
-  }, []); // Empty dependency array means this runs only once when component mounts
+  }, []); 
 
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
 
-      axios.defaults.withCredentials = true;
-
       if (state === 'Sign Up') {
         const { data } = await axios.post(backendUrl + '/api/auth/register', { name, email, password });
 
         if (data.success) {
+          localStorage.setItem("token", data.token);  // Store JWT token
           setIsLoggedIn(true);
           getUserData();
           navigate('/');
@@ -44,10 +41,10 @@ const Login = () => {
         const { data } = await axios.post(backendUrl + '/api/auth/login', { email, password });
 
         if (data.success) {
-          // Store email in localStorage after successful login
-          localStorage.setItem("email", email);
-          getUserData();
+          localStorage.setItem("email", email);  // Store email
+          localStorage.setItem("token", data.token);  // Store JWT token
           setIsLoggedIn(true);
+          getUserData();
           navigate('/');
         } else {
           toast.error(data.message);
