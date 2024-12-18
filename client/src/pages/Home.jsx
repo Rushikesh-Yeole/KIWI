@@ -8,30 +8,29 @@ const Home = () => {
 
 useEffect(()=>{
   getUserData();
-  getAuthState();
 },[])
 
   const { userData, backendUrl, setIsLoggedIn, getUserData } = useContext(AppContent);
 
-  const getAuthState = async () => {
-    try {
-      const token = localStorage.getItem("token");
+  // const getAuthState = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
 
-      if (token) {
-        axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-        const { data } = await axios.get(backendUrl + '/api/auth/is-auth');
-        if (data.success) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      } else {
-        setIsLoggedIn(false);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  //     if (token) {
+  //       axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+  //       const { data } = await axios.get(backendUrl + '/api/auth/is-auth');
+  //       if (data.success) {
+  //         setIsLoggedIn(true);
+  //       } else {
+  //         setIsLoggedIn(false);
+  //       }
+  //     } else {
+  //       setIsLoggedIn(false);
+  //     }
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
 
   const [selectedService, setSelectedService] = useState("");
   const accountOptions = ["Instagram", "Snapchat", "Google", "Facebook", "Twitter", "LinkedIn"];
