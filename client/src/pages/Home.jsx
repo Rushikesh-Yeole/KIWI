@@ -5,6 +5,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Home = () => {
+
+useEffect(()=>{
+  getAuthState();
+},[])
+
   const { userData, backendUrl, setIsLoggedIn, getUserData } = useContext(AppContent);
 
   const getAuthState = async () => {
@@ -15,8 +20,8 @@ const Home = () => {
         axios.defaults.headers["Authorization"] = `Bearer ${token}`;
         const { data } = await axios.get(backendUrl + '/api/auth/is-auth');
         if (data.success) {
-          setIsLoggedIn(true);
           getUserData();
+          setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
         }
@@ -27,11 +32,6 @@ const Home = () => {
       console.log(error.message);
     }
   };
-
-  useEffect(()=>{
-    getAuthState();
-  },[])
-
 
   const [selectedService, setSelectedService] = useState("");
   const accountOptions = ["Instagram", "Snapchat", "Google", "Facebook", "Twitter", "LinkedIn"];
