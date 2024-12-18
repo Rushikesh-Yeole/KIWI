@@ -1,11 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { AppContent } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const Home = () => {
-  const { userData, backendUrl } = useContext(AppContent);
+  const { userData, backendUrl, setIsLoggedIn, getUserData } = useContext(AppContent);
+
+  const getAuthState = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+        const { data } = await axios.get(backendUrl + '/api/auth/is-auth');
+        if (data.success) {
+          setIsLoggedIn(true);
+          getUserData();
+        } else {
+          setIsLoggedIn(false);
+        }
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(()=>{
+    if(!setIsLoggedIn)
+    getAuthState();
+  },[])
+
+
   const [selectedService, setSelectedService] = useState("");
   const accountOptions = ["Instagram", "Snapchat", "Google", "Facebook", "Twitter", "LinkedIn"];
 

@@ -5,7 +5,7 @@ const userAuth = async (req, res, next) => {
     const token = req.headers["authorization"]?.split(" ")[1]; // Extract token from the 'Bearer <token>' format
 
     if (!token) {
-        return res.json({ success: false, message: 'Not Authorized. Please login again.' });
+        return res.json({ success: false});
     }
 
     try {

@@ -15,6 +15,7 @@ connectDB();
 // Define allowed origins for CORS
 const allowedOrigins = ['https://kiwi-client.onrender.com'];
 // http://localhost:5173
+// 'https://kiwi-client.onrender.com'
 
 // Middleware
 app.use(express.json());

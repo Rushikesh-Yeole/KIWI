@@ -32,7 +32,11 @@ const Navbar = () => {
       axios.defaults.withCredentials = true;
       const { data } = await axios.post(backendUrl + '/api/auth/logout');
       if (data.success) {
-        setIsLoggedIn(false);
+        const email = localStorage.getItem("email");
+        localStorage.clear();
+        if (email) {
+          localStorage.setItem("email", email);
+        }        setIsLoggedIn(false);
         setUserData(false);
         navigate('/');
       }
