@@ -41,7 +41,6 @@ const Login = () => {
         const { data } = await axios.post(backendUrl + '/api/auth/login', { email, password });
 
         if (data.success) {
-          localStorage.clear();
           localStorage.setItem("email", email);  // Store email
           localStorage.setItem("token", data.token);  // Store JWT token
           setIsLoggedIn(true);
