@@ -33,8 +33,8 @@ const Navbar = () => {
       const { data } = await axios.post(backendUrl + '/api/auth/logout');
       if (data.success) {
         setUserData(false);
-        navigate('/');
         setIsLoggedIn(false);
+        navigate('/');
         const email = localStorage.getItem("email");
         localStorage.clear();
         if (email) {
