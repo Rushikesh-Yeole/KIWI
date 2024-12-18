@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 const Home = () => {
 
 useEffect(()=>{
+  getUserData();
   getAuthState();
 },[])
 
@@ -20,7 +21,6 @@ useEffect(()=>{
         axios.defaults.headers["Authorization"] = `Bearer ${token}`;
         const { data } = await axios.get(backendUrl + '/api/auth/is-auth');
         if (data.success) {
-          getUserData();
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
