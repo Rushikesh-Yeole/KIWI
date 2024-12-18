@@ -29,7 +29,6 @@ const Home = () => {
   };
 
   useEffect(()=>{
-    if(setIsLoggedIn=false)
     getAuthState();
   },[])
 
